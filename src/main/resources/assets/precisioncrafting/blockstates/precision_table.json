@@ -1,0 +1,7 @@
+{
+	"variants":
+	{
+		"normal": {"model": "precisioncrafting:precision_table"},
+		"inventory": {"model": "precisioncrafting:precision_table"}
+	}
+}

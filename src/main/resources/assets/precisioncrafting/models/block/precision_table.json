@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle": "precisioncrafting:blocks/precision_table_front",
+        "down": "blocks/planks_oak",
+        "up": "precisioncrafting:blocks/precision_table_top",
+        "north": "precisioncrafting:blocks/precision_table_front",
+        "east": "precisioncrafting:blocks/precision_table_side",
+        "south": "precisioncrafting:blocks/precision_table_side",
+        "west": "precisioncrafting:blocks/precision_table_front"
+    }
+}

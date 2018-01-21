@@ -1,0 +1,16 @@
+[
+{
+  "modid": "precisioncrafting",
+  "name": "Precision Crafting",
+  "description": "Adds a Precision Crafting table that allows items to be crafted in precise amounts, with no excess results",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Leviathan143"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
