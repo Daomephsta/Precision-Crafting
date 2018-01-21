@@ -1,0 +1,29 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": 
+  [
+    "ISI",
+    " T "
+  ],
+  "key": 
+  {
+    "I": 
+	{
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+	"T": 
+	{
+      "type": "forge:ore_dict",
+      "ore": "craftingTable"
+    },
+	"S": 
+	{
+      "item": "minecraft:shears"
+    }
+  },
+  "result": 
+  {
+    "item": "precisioncrafting:precision_table"
+  }
+}

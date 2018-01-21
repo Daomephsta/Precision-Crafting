@@ -8,6 +8,7 @@ import leviathan143.precisioncrafting.common.precisiontable.TilePrecisionTable;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -21,6 +22,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.oredict.OreDictionary;
 
 @Mod(modid = Constants.MODID, name = Constants.MODNAME, version = Constants.VERSION)
 public class PrecisionCrafting
@@ -60,6 +62,13 @@ public class PrecisionCrafting
 		{
 			event.getRegistry()
 					.register(new ItemBlock(PRECISION_TABLE).setRegistryName(PRECISION_TABLE.getRegistryName()));
+			
+			registerOreDictEntries();
+		}
+		
+		private static void registerOreDictEntries()
+		{
+			OreDictionary.registerOre("craftingTable", Blocks.CRAFTING_TABLE);
 		}
 	}
 
