@@ -1,5 +1,7 @@
 package leviathan143.precisioncrafting;
 
+import org.apache.logging.log4j.Logger;
+
 import leviathan143.precisioncrafting.client.GuiHandler;
 import leviathan143.precisioncrafting.common.packets.PacketHandler;
 import leviathan143.precisioncrafting.common.precisiontable.BlockPrecisionTable;
@@ -33,6 +35,8 @@ public class PrecisionCrafting
 
 	@Instance(PrecisionCrafting.MODID)
 	public static PrecisionCrafting INSTANCE;
+	
+	public static Logger logger;
 
 	@ObjectHolder(PrecisionCrafting.MODID + ":precision_table")
 	public static final Block PRECISION_TABLE = null;
@@ -40,6 +44,7 @@ public class PrecisionCrafting
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
+		logger = event.getModLog();
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 		PacketHandler.registerPackets();
 		GameRegistry.registerTileEntity(TilePrecisionTable.class, PrecisionCrafting.MODID + ":precision_table");

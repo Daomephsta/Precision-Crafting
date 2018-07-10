@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.google.common.collect.ImmutableSet;
 
+import leviathan143.precisioncrafting.common.Utils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
@@ -173,7 +174,13 @@ public class ContainerPrecisionTable extends Container
 		 * Slot#onSlotChanged() is called 5 times per change for some stupid
 		 * reason */
 		validRecipeType = matchingRecipe != null ? VALID_RECIPE_TYPES.contains(matchingRecipe.getClass()) : true;
-		if (!validRecipeType) return;
+		if (!validRecipeType) 
+		{
+			if (matchingRecipe != null)
+				Utils.logDebug("Ignored recipe {} because it was an instance of {}, which is not whitelisted",
+					matchingRecipe.getRegistryName(), matchingRecipe.getClass().getName());
+			return;
+		}
 		if (lastMatchingRecipe != matchingRecipe && matchingRecipe != null)
 		{
 			if (validRecipeType)
