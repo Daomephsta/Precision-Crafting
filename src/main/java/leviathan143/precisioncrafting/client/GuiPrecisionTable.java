@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
-import leviathan143.precisioncrafting.PrecisionCrafting.Constants;
+import leviathan143.precisioncrafting.PrecisionCrafting;
 import leviathan143.precisioncrafting.common.packets.PacketHandler;
 import leviathan143.precisioncrafting.common.packets.PacketSetOutputQuantity;
 import leviathan143.precisioncrafting.common.precisiontable.*;
@@ -23,7 +23,7 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 public class GuiPrecisionTable extends GuiContainer
 {
-	private static final ResourceLocation PRECISION_TABLE_GUI = new ResourceLocation(Constants.MODID,
+	private static final ResourceLocation PRECISION_TABLE_GUI = new ResourceLocation(PrecisionCrafting.MODID,
 			"textures/gui/precision_table.png");
 	private static final int BTN_INCREASE_QUANTITY = 0;
 	private static final int BTN_DECREASE_QUANTITY = 1;
@@ -111,13 +111,13 @@ public class GuiPrecisionTable extends GuiContainer
 		{
 			if (!tableContainer.isRecipeTypeValid())
 			{
-				this.drawHoveringText(I18n.format(Constants.MODID + ".error.invalidRecipeType"), mouseX - 100, mouseY);
+				this.drawHoveringText(I18n.format(PrecisionCrafting.MODID + ".error.invalidRecipeType"), mouseX - 100, mouseY);
 				return;
 			}
 
 			if (!tableContainer.hasRequiredIngredients())
 			{
-				this.drawHoveringText(I18n.format(Constants.MODID + ".error.missingIngredients"), mouseX - 100, mouseY);
+				this.drawHoveringText(I18n.format(PrecisionCrafting.MODID + ".error.missingIngredients"), mouseX - 100, mouseY);
 				return;
 			}
 		}
@@ -187,7 +187,7 @@ public class GuiPrecisionTable extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
-		this.fontRenderer.drawString(I18n.format(Constants.MODID + ".container.precisionCrafting"), 28, 6, 4210752);
+		this.fontRenderer.drawString(I18n.format(PrecisionCrafting.MODID + ".container.precisionCrafting"), 28, 6, 4210752);
 		this.fontRenderer.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
 	}
 

@@ -1,6 +1,5 @@
 package leviathan143.precisioncrafting;
 
-import leviathan143.precisioncrafting.PrecisionCrafting.Constants;
 import leviathan143.precisioncrafting.client.GuiHandler;
 import leviathan143.precisioncrafting.common.packets.PacketHandler;
 import leviathan143.precisioncrafting.common.precisiontable.BlockPrecisionTable;
@@ -24,20 +23,18 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
 
-@Mod(modid = Constants.MODID, name = Constants.MODNAME, version = Constants.VERSION)
+@Mod(modid = PrecisionCrafting.MODID, name = PrecisionCrafting.MODNAME, version = PrecisionCrafting.VERSION)
 public class PrecisionCrafting
 {
-	public class Constants
-	{
-		public static final String MODNAME = "Precision Crafting";
-		public static final String MODID = "precisioncrafting";
-		public static final String VERSION = "0.0.1";
-	}
+	public static final String 
+		VERSION = "0.0.1", 
+		MODID = "precisioncrafting", 
+		MODNAME = "Precision Crafting";
 
-	@Instance(Constants.MODID)
+	@Instance(PrecisionCrafting.MODID)
 	public static PrecisionCrafting INSTANCE;
 
-	@ObjectHolder(Constants.MODID + ":precision_table")
+	@ObjectHolder(PrecisionCrafting.MODID + ":precision_table")
 	public static final Block PRECISION_TABLE = null;
 
 	@Mod.EventHandler
@@ -45,10 +42,10 @@ public class PrecisionCrafting
 	{
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 		PacketHandler.registerPackets();
-		GameRegistry.registerTileEntity(TilePrecisionTable.class, Constants.MODID + ":precision_table");
+		GameRegistry.registerTileEntity(TilePrecisionTable.class, PrecisionCrafting.MODID + ":precision_table");
 	}
 
-	@Mod.EventBusSubscriber(modid = Constants.MODID)
+	@Mod.EventBusSubscriber(modid = PrecisionCrafting.MODID)
 	private static class RegistryHandler
 	{
 		@SubscribeEvent
@@ -72,13 +69,13 @@ public class PrecisionCrafting
 		}
 	}
 
-	@Mod.EventBusSubscriber(modid = Constants.MODID, value = Side.CLIENT)
+	@Mod.EventBusSubscriber(modid = PrecisionCrafting.MODID, value = Side.CLIENT)
 	private static class ModelHandler
 	{
 		@SubscribeEvent
 		public static void registerModels(ModelRegistryEvent event)
 		{
-			Item tableIB = Item.getItemFromBlock(PRECISION_TABLE);
+			final Item tableIB = Item.getItemFromBlock(PRECISION_TABLE);
 			ModelLoader.setCustomModelResourceLocation(tableIB, 0,
 					new ModelResourceLocation(tableIB.getRegistryName(), "inventory"));
 		}

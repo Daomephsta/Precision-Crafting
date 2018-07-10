@@ -1,7 +1,6 @@
 package leviathan143.precisioncrafting.common.precisiontable;
 
 import leviathan143.precisioncrafting.PrecisionCrafting;
-import leviathan143.precisioncrafting.PrecisionCrafting.Constants;
 import leviathan143.precisioncrafting.client.GuiHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -22,8 +21,8 @@ public class BlockPrecisionTable extends Block
 	public BlockPrecisionTable()
 	{
 		super(Material.WOOD);
-		setRegistryName(Constants.MODID, "precision_table");
-		setUnlocalizedName(Constants.MODID + ".precision_table");
+		setRegistryName(PrecisionCrafting.MODID, "precision_table");
+		setUnlocalizedName(PrecisionCrafting.MODID + ".precision_table");
 	}
 
 	@Override

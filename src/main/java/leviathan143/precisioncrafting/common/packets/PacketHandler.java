@@ -1,13 +1,13 @@
 package leviathan143.precisioncrafting.common.packets;
 
-import leviathan143.precisioncrafting.PrecisionCrafting.Constants;
+import leviathan143.precisioncrafting.PrecisionCrafting;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class PacketHandler
 {
-	public static final SimpleNetworkWrapper CHANNEL = NetworkRegistry.INSTANCE.newSimpleChannel(Constants.MODID);
+	public static final SimpleNetworkWrapper CHANNEL = NetworkRegistry.INSTANCE.newSimpleChannel(PrecisionCrafting.MODID);
 	private static int packetID = 0;
 
 	public static void registerPackets()
