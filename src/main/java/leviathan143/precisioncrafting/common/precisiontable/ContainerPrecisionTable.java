@@ -24,8 +24,8 @@ public class ContainerPrecisionTable extends Container
 	private final InventoryPlayer playerInv;
 	private final InventoryCrafting crafting = new InventoryCrafting(this, 3, 3);
 
-	private List<QuantifiableIngredientI> consolidatedIngredients = new ArrayList<>();
-	private List<QuantifiableIngredientF> requiredIngredients = new ArrayList<>();
+	private final List<QuantifiableIngredientI> consolidatedIngredients = new ArrayList<>();
+	private final List<QuantifiableIngredientF> requiredIngredients = new ArrayList<>();
 	private IRecipe lastMatchingRecipe;
 	private IRecipe matchingRecipe;
 	private boolean validRecipeType = false;
@@ -42,10 +42,10 @@ public class ContainerPrecisionTable extends Container
 		{
 			for (int column = 0; column < 3; column++)
 			{
-				int x = 30 + 18 * column;
-				int y = 17 + 18 * row;
-				int index = 3 * row + column;
-				Slot slot = addSlotToContainer(new GhostSlot(table.getPattern(), index, x, y)
+				final int x = 30 + 18 * column;
+				final int y = 17 + 18 * row;
+				final int index = 3 * row + column;
+				final Slot slot = addSlotToContainer(new GhostSlot(table.getPattern(), index, x, y)
 				{
 					@Override
 					public void onSlotChanged()
@@ -58,7 +58,7 @@ public class ContainerPrecisionTable extends Container
 			}
 		}
 
-		IItemHandler tableInv = table.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+		final IItemHandler tableInv = table.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 		// Output
 		addSlotToContainer(new SlotItemHandler(tableInv, SLOT_OUTPUT, 124, 35)
 		{
@@ -77,13 +77,13 @@ public class ContainerPrecisionTable extends Container
 			@Override
 			public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack)
 			{
-				IItemHandler tableInv = table.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+				final IItemHandler tableInv = table.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 				for (int i = 0; i < requiredIngredients.size(); i++)
 				{
-					QuantifiableIngredientF qIngredient = requiredIngredients.get(i);
-					tableInv.extractItem(i + 1, (int) MathHelper.ceil(qIngredient.getQuantity()), false);
+					final QuantifiableIngredientF qIngredient = requiredIngredients.get(i);
+					tableInv.extractItem(i + 1, MathHelper.ceil(qIngredient.getQuantity()), false);
 				}
-				ItemStack stackOutput = matchingRecipe.getCraftingResult(crafting).copy();
+				final ItemStack stackOutput = matchingRecipe.getCraftingResult(crafting).copy();
 				stackOutput.setCount(table.getOutputQuantity());
 				((IItemHandlerModifiable) tableInv).setStackInSlot(0, stackOutput);
 				return super.onTake(thePlayer, stack);
@@ -92,7 +92,7 @@ public class ContainerPrecisionTable extends Container
 		// Ingredients
 		for (int column = 0; column < 9; column++)
 		{
-			int x = 8 + 18 * column;
+			final int x = 8 + 18 * column;
 			addSlotToContainer(new SlotItemHandler(tableInv, column + 1, x, 75)
 			{
 				@Override
@@ -111,7 +111,7 @@ public class ContainerPrecisionTable extends Container
 		// Hotbar
 		for (int column = 0; column < 9; column++)
 		{
-			int x = 8 + 18 * column;
+			final int x = 8 + 18 * column;
 			addSlotToContainer(new Slot(playerInv, column, x, 184));
 		}
 		// Inventory
@@ -119,8 +119,8 @@ public class ContainerPrecisionTable extends Container
 		{
 			for (int column = 0; column < 9; column++)
 			{
-				int x = 8 + 18 * column;
-				int y = 108 + 18 * row;
+				final int x = 8 + 18 * column;
+				final int y = 108 + 18 * row;
 				addSlotToContainer(new Slot(playerInv, 9 * row + column, x, y));
 			}
 		}
@@ -132,9 +132,10 @@ public class ContainerPrecisionTable extends Container
 		{
 			if (validRecipeType)
 			{
-				IItemHandlerModifiable tableInv = (IItemHandlerModifiable) table
+				hasRequiredIngredients = false;
+				final IItemHandlerModifiable tableInv = (IItemHandlerModifiable) table
 						.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-				ItemStack stack = matchingRecipe.getCraftingResult(crafting).copy();
+				final ItemStack stack = matchingRecipe.getCraftingResult(crafting).copy();
 				stack.setCount(table.getOutputQuantity());
 				tableInv.setStackInSlot(0, stack);
 			}
@@ -152,11 +153,11 @@ public class ContainerPrecisionTable extends Container
 
 	private void checkIngredients()
 	{
-		IItemHandler tableInv = table.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+		final IItemHandler tableInv = table.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 		hasRequiredIngredients = true;
 		for (int i = 0; i < requiredIngredients.size(); i++)
 		{
-			QuantifiableIngredientF qIngredient = requiredIngredients.get(i);
+			final QuantifiableIngredientF qIngredient = requiredIngredients.get(i);
 			if (!qIngredient.apply(tableInv.getStackInSlot(i + 1))) hasRequiredIngredients = false;
 		}
 	}
@@ -164,7 +165,7 @@ public class ContainerPrecisionTable extends Container
 	private void updateRecipe()
 	{
 
-		IItemHandlerModifiable tableInv = (IItemHandlerModifiable) table
+		final IItemHandlerModifiable tableInv = (IItemHandlerModifiable) table
 				.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 		matchingRecipe = CraftingManager.findMatchingRecipe(crafting, table.getWorld());
 
@@ -177,7 +178,7 @@ public class ContainerPrecisionTable extends Container
 		{
 			if (validRecipeType)
 			{
-				ItemStack result = matchingRecipe.getCraftingResult(crafting).copy();
+				final ItemStack result = matchingRecipe.getCraftingResult(crafting).copy();
 				result.setCount(table.getOutputQuantity());
 				tableInv.setStackInSlot(0, result);
 			}
@@ -197,10 +198,10 @@ public class ContainerPrecisionTable extends Container
 	private void consolidateIngredients()
 	{
 		consolidatedIngredients.clear();
-		for (Ingredient ingredient : matchingRecipe.getIngredients())
+		for (final Ingredient ingredient : matchingRecipe.getIngredients())
 		{
 			boolean unique = true;
-			for (QuantifiableIngredientI entry : consolidatedIngredients)
+			for (final QuantifiableIngredientI entry : consolidatedIngredients)
 			{
 				if (areIngredientsEqual(ingredient, entry.getIngredient()))
 				{
@@ -218,11 +219,11 @@ public class ContainerPrecisionTable extends Container
 	private boolean areIngredientsEqual(Ingredient a, Ingredient b)
 	{
 		if (a == b) return true;
-		for (ItemStack aStack : a.getMatchingStacks())
+		for (final ItemStack aStack : a.getMatchingStacks())
 		{
 			if (!b.apply(aStack)) return false;
 		}
-		for (ItemStack bStack : b.getMatchingStacks())
+		for (final ItemStack bStack : b.getMatchingStacks())
 		{
 			if (!a.apply(bStack)) return false;
 		}
@@ -232,11 +233,11 @@ public class ContainerPrecisionTable extends Container
 	private void computeRequiredIngredients()
 	{
 		requiredIngredients.clear();
-		int resultCount = matchingRecipe.getCraftingResult(crafting).getCount();
-		float multiplier = (float) table.getOutputQuantity() / resultCount;
-		for (QuantifiableIngredientI entry : consolidatedIngredients)
+		final int resultCount = matchingRecipe.getCraftingResult(crafting).getCount();
+		final float multiplier = (float) table.getOutputQuantity() / resultCount;
+		for (final QuantifiableIngredientI entry : consolidatedIngredients)
 		{
-			float result = entry.getQuantity() * multiplier;
+			final float result = entry.getQuantity() * multiplier;
 			requiredIngredients.add(new QuantifiableIngredientF(entry.getIngredient(), result));
 		}
 	}
@@ -272,7 +273,7 @@ public class ContainerPrecisionTable extends Container
 	{
 		if (0 <= slotId && slotId < inventorySlots.size())
 		{
-			Slot slot = inventorySlots.get(slotId);
+			final Slot slot = inventorySlots.get(slotId);
 			if (slot instanceof GhostSlot)
 			{
 				if (clickType == ClickType.PICKUP_ALL)
@@ -285,8 +286,8 @@ public class ContainerPrecisionTable extends Container
 				}
 				else
 				{
-					ItemStack cursorStack = player.inventory.getItemStack();
-					ItemStack newSlotStack = cursorStack.copy();
+					final ItemStack cursorStack = player.inventory.getItemStack();
+					final ItemStack newSlotStack = cursorStack.copy();
 					newSlotStack.setCount(1);
 					slot.putStack(newSlotStack);
 				}
@@ -299,11 +300,11 @@ public class ContainerPrecisionTable extends Container
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
 	{
 		ItemStack stack = ItemStack.EMPTY;
-		Slot slot = inventorySlots.get(index);
+		final Slot slot = inventorySlots.get(index);
 
 		if (slot != null && slot.getHasStack())
 		{
-			ItemStack slotStack = slot.getStack();
+			final ItemStack slotStack = slot.getStack();
 			stack = slotStack.copy();
 
 			// Hotbar
