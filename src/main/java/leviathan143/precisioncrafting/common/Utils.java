@@ -14,7 +14,7 @@ public class Utils
 
 	public static void logDebug(String message, Object... args)
 	{
-		if (PCConfig.debugLogging)
+		if (PCConfig.debugCategory.debugLogging)
 			PrecisionCrafting.logger.info(message, args);
 	}
 }

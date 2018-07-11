@@ -4,7 +4,7 @@ import java.util.*;
 
 import com.google.common.collect.ImmutableSet;
 
-import leviathan143.precisioncrafting.common.Utils;
+import leviathan143.precisioncrafting.common.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
@@ -18,8 +18,6 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 public class ContainerPrecisionTable extends Container
 {
 	public static final int SLOT_OUTPUT = 0;	
-	private static final Set<Class<? extends IRecipe>> VALID_RECIPE_TYPES = ImmutableSet.of(ShapelessRecipes.class,
-			ShapelessOreRecipe.class, ShapedRecipes.class, ShapedOreRecipe.class);
 
 	private final TilePrecisionTable table;
 	private final InventoryPlayer playerInv;
@@ -173,22 +171,15 @@ public class ContainerPrecisionTable extends Container
 		/* Don't update the recipe if it hasn't actually changed, because
 		 * Slot#onSlotChanged() is called 5 times per change for some stupid
 		 * reason */
-		validRecipeType = matchingRecipe != null ? VALID_RECIPE_TYPES.contains(matchingRecipe.getClass()) : true;
-		if (!validRecipeType) 
-		{
-			if (matchingRecipe != null)
-				Utils.logDebug("Ignored recipe {} because it was an instance of {}, which is not whitelisted",
-					matchingRecipe.getRegistryName(), matchingRecipe.getClass().getName());
-			return;
-		}
+		validRecipeType = matchingRecipe != null 
+			? RecipeWhitelist.isWhitelisted(matchingRecipe) && !RecipeBlacklist.isBlacklisted(matchingRecipe) 
+			: true;
+		if (!validRecipeType) return;
 		if (lastMatchingRecipe != matchingRecipe && matchingRecipe != null)
 		{
-			if (validRecipeType)
-			{
-				final ItemStack result = matchingRecipe.getCraftingResult(crafting).copy();
-				result.setCount(table.getOutputQuantity());
-				tableInv.setStackInSlot(0, result);
-			}
+			ItemStack result = matchingRecipe.getCraftingResult(crafting).copy();
+			result.setCount(table.getOutputQuantity());
+			tableInv.setStackInSlot(0, result);
 			consolidateIngredients();
 			computeRequiredIngredients();
 		}

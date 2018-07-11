@@ -111,7 +111,7 @@ public class GuiPrecisionTable extends GuiContainer
 		{
 			if (!tableContainer.isRecipeTypeValid())
 			{
-				this.drawHoveringText(I18n.format(PrecisionCrafting.MODID + ".error.invalidRecipeType"), mouseX - 100, mouseY);
+				this.drawHoveringText(I18n.format(PrecisionCrafting.MODID + ".error.blacklistedRecipe"), mouseX - 100, mouseY);
 				return;
 			}
 

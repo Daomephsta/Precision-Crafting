@@ -1,5 +1,5 @@
 tile.precisioncrafting.precision_table.name=Precision Crafting Table
 item.precisioncrafting.leftovers.name=Leftovers
-precisioncrafting.error.invalidRecipeType=Recipes with custom logic are invalid
+precisioncrafting.error.blacklistedRecipe=This recipe or its class is blacklisted
 precisioncrafting.error.missingIngredients=Missing ingredients
 precisioncrafting.container.precisionCrafting=Precision Crafting

@@ -3,6 +3,8 @@ package leviathan143.precisioncrafting;
 import org.apache.logging.log4j.Logger;
 
 import leviathan143.precisioncrafting.client.GuiHandler;
+import leviathan143.precisioncrafting.common.RecipeBlacklist;
+import leviathan143.precisioncrafting.common.RecipeWhitelist;
 import leviathan143.precisioncrafting.common.packets.PacketHandler;
 import leviathan143.precisioncrafting.common.precisiontable.BlockPrecisionTable;
 import leviathan143.precisioncrafting.common.precisiontable.TilePrecisionTable;
@@ -17,6 +19,8 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.event.FMLInterModComms.IMCEvent;
+import net.minecraftforge.fml.common.event.FMLInterModComms.IMCMessage;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -48,6 +52,32 @@ public class PrecisionCrafting
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 		PacketHandler.registerPackets();
 		GameRegistry.registerTileEntity(TilePrecisionTable.class, PrecisionCrafting.MODID + ":precision_table");
+	}
+	
+	@Mod.EventHandler
+	public void handleIMCMessages(IMCEvent event)
+	{
+		for(IMCMessage message : event.getMessages())
+		{
+			switch (message.key)
+			{
+			case "whitelist_recipe_name":
+				RecipeWhitelist.whitelist(message.getResourceLocationValue());
+				break;
+			case "whitelist_recipe_class":
+				RecipeWhitelist.whitelistRecipeClass(message.getStringValue());
+				break;
+			case "blacklist_recipe_name":
+				RecipeBlacklist.blacklist(message.getResourceLocationValue());
+				break;
+			case "blacklist_recipe_class":
+				RecipeBlacklist.blacklistRecipeClass(message.getStringValue());
+				break;
+			default:
+				logger.warn("Message with unknown key {} recieved from {}", message.key, message.getSender());
+				break;
+			}
+		}
 	}
 
 	@Mod.EventBusSubscriber(modid = PrecisionCrafting.MODID)
