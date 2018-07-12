@@ -85,6 +85,7 @@ public class ContainerPrecisionTable extends Container
 				final ItemStack stackOutput = matchingRecipe.getCraftingResult(crafting).copy();
 				stackOutput.setCount(table.getOutputQuantity());
 				((IItemHandlerModifiable) tableInv).setStackInSlot(0, stackOutput);
+				checkIngredients();
 				return super.onTake(thePlayer, stack);
 			}
 		});
@@ -131,7 +132,6 @@ public class ContainerPrecisionTable extends Container
 		{
 			if (validRecipeType)
 			{
-				hasRequiredIngredients = false;
 				final IItemHandlerModifiable tableInv = (IItemHandlerModifiable) table
 						.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 				final ItemStack stack = matchingRecipe.getCraftingResult(crafting).copy();
@@ -139,6 +139,7 @@ public class ContainerPrecisionTable extends Container
 				tableInv.setStackInSlot(0, stack);
 			}
 			computeRequiredIngredients();
+			checkIngredients();
 		}
 		table.markDirty();
 	}
