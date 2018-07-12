@@ -52,14 +52,19 @@ public class PCConfig
 		public boolean debugLogging = false;
 	}
 
+	public static void finishLoading()
+	{
+		RecipeBlacklist.loadFromConfig(blacklistCategory.recipeClassBlacklist, blacklistCategory.recipeNameBlacklist);
+		RecipeWhitelist.loadFromConfig(whitelistCategory.recipeClassWhitelist, whitelistCategory.recipeNameWhitelist);
+	}
+	
 	@SubscribeEvent
 	public static void onConfigChanged(ConfigChangedEvent e)
 	{
 		if (e.getModID().equals(PrecisionCrafting.MODID))
 		{
 			ConfigManager.sync(PrecisionCrafting.MODID, Type.INSTANCE);
-			RecipeBlacklist.loadFromConfig(blacklistCategory.recipeClassBlacklist, blacklistCategory.recipeNameBlacklist);
-			RecipeWhitelist.loadFromConfig(whitelistCategory.recipeClassWhitelist, whitelistCategory.recipeNameWhitelist);
+			finishLoading();
 		}
 	}
 }

@@ -3,8 +3,7 @@ package leviathan143.precisioncrafting;
 import org.apache.logging.log4j.Logger;
 
 import leviathan143.precisioncrafting.client.GuiHandler;
-import leviathan143.precisioncrafting.common.RecipeBlacklist;
-import leviathan143.precisioncrafting.common.RecipeWhitelist;
+import leviathan143.precisioncrafting.common.*;
 import leviathan143.precisioncrafting.common.packets.PacketHandler;
 import leviathan143.precisioncrafting.common.precisiontable.BlockPrecisionTable;
 import leviathan143.precisioncrafting.common.precisiontable.TilePrecisionTable;
@@ -52,6 +51,7 @@ public class PrecisionCrafting
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 		PacketHandler.registerPackets();
 		GameRegistry.registerTileEntity(TilePrecisionTable.class, PrecisionCrafting.MODID + ":precision_table");
+		PCConfig.finishLoading();
 	}
 	
 	@Mod.EventHandler
