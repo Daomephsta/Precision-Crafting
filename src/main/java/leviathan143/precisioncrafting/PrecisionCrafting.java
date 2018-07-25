@@ -32,7 +32,7 @@ import net.minecraftforge.oredict.OreDictionary;
 public class PrecisionCrafting
 {
 	public static final String 
-		VERSION = "0.0.1", 
+		VERSION = "0.0.2", 
 		MODID = "precisioncrafting", 
 		MODNAME = "Precision Crafting";
 
